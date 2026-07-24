@@ -1,0 +1,55 @@
+---
+import { buttonVariants } from "@/components/ui/button";
+
+const navLinks = [
+  { label: "Platform", href: "#platform" },
+  { label: "Features", href: "#features" },
+  { label: "Industries", href: "#industries" },
+];
+---
+
+<header class="bg-background border-b border-border sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <div class="flex items-center">
+        <a
+          href="/"
+          class="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+          aria-label="Energy-i home"
+        >
+          <img
+            src="/logo.svg"
+            alt="Energy-i Logo"
+            width="22"
+            height="23"
+            class="h-12 w-auto"
+          />
+          <span class="text-lg font-semibold">Energy-i</span>
+        </a>
+      </div>
+      <nav class="hidden md:flex space-x-8">
+        {
+          navLinks.map((link) => (
+            <a
+              href={link.href}
+              class="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors"
+            >
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+      <div class="flex items-center space-x-3">
+        <a
+          href="https://my.energy-i.ai"
+          class={buttonVariants({ variant: "outline" })}
+        >
+          Sign up
+        </a>
+        <a href="/join-pilot" class={buttonVariants({ variant: "default" })}>
+          Join Pilot
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
