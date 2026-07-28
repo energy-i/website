@@ -111,3 +111,14 @@ const legalLinks = [
     </div>
   </div>
 </footer>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    var emailLink = document.querySelector('footer a[href^="mailto:"]');
+    if (emailLink) {
+      emailLink.addEventListener('click', function () {
+        window.posthog?.capture('footer_email_clicked');
+      });
+    }
+  });
+</script>

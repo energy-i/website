@@ -9,7 +9,8 @@ The Energy-i marketing site — an [Astro](https://astro.build/) static site wit
 - [Tailwind CSS](https://tailwindcss.com/) 4 via `@tailwindcss/vite`
 - [shadcn/ui](https://ui.shadcn.com/) components (`Button`, `Badge`, `Card`) — kept in sync with the `my` app
 - [lucide-react](https://lucide.dev/) icons
-- Font: Montserrat (loaded from Google Fonts)
+- Font: [Montserrat Variable](https://fontsource.org/fonts/montserrat) via `@fontsource-variable/montserrat`
+- [PostHog](https://posthog.com/) analytics for conversion tracking
 
 ## Project structure
 
@@ -31,6 +32,18 @@ src/
 ```
 
 Page-specific copy and arrays live inline in the page/component that consumes them. There is no central content module.
+
+## Analytics
+
+PostHog analytics is integrated via `src/components/posthog.astro` included in the base layout. This tracks key conversion signals:
+
+- `pilot_section_viewed` — Pilot program section scrolls into view
+- `join_pilot_clicked` — Join Pilot CTA button clicked
+- `book_demo_clicked` — Book a Demo CTA clicked
+- `signup_clicked` — Sign Up header button clicked
+- `footer_email_clicked` — Contact email link in footer clicked
+
+Environment variables required: `PUBLIC_POSTHOG_PROJECT_TOKEN` and `PUBLIC_POSTHOG_HOST`.
 
 ## UI components
 

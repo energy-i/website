@@ -53,3 +53,14 @@ const navLinks = [
     </div>
   </div>
 </header>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    var signupBtn = document.querySelector('a[href="https://my.energy-i.ai"]');
+    if (signupBtn) {
+      signupBtn.addEventListener('click', function () {
+        window.posthog?.capture('signup_clicked');
+      });
+    }
+  });
+</script>

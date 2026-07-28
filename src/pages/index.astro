@@ -725,3 +725,35 @@ const pilotBenefits = [
     <Footer />
   </main>
 </BaseLayout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Track Join Pilot clicks
+    document.querySelectorAll('a[href="/join-pilot"]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        window.posthog?.capture('join_pilot_clicked', { location: el.closest('header') ? 'header' : 'page' });
+      });
+    });
+
+    // Track Book a Demo clicks
+    document.querySelectorAll('a[href^="mailto:"][href*="demo"]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        window.posthog?.capture('book_demo_clicked', { location: el.closest('section') ? el.closest('section').id || 'section' : 'page' });
+      });
+    });
+
+    // Track pilot section becoming visible (top of conversion funnel)
+    var pilotSection = document.getElementById('pilot');
+    if (pilotSection && 'IntersectionObserver' in window) {
+      var observed = false;
+      var observer = new IntersectionObserver(function (entries) {
+        if (!observed && entries[0].isIntersecting) {
+          observed = true;
+          window.posthog?.capture('pilot_section_viewed');
+          observer.disconnect();
+        }
+      }, { threshold: 0.3 });
+      observer.observe(pilotSection);
+    }
+  });
+</script>
