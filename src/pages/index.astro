@@ -129,12 +129,14 @@ const pilotBenefits = [
               >
                 Energy Management Software
               </p>
-              <h1 class="text-4xl lg:text-5xl font-semibold text-foreground">
-                Meet the ultimate
-                <span class="lg:block mt-2 text-primary font-semibold">
+              <h1
+                class="text-4xl lg:text-5xl leading-tight font-semibold text-foreground"
+              >
+                Meet the ultimate{" "}
+                <span class="text-primary font-semibold">
                   digital energy advisor
-                </span>
-                <span class="lg:block mt-2">for your business</span>
+                </span>{" "}
+                for your business
               </h1>
               <p
                 class="text-lg lg:text-xl leading-relaxed max-w-2xl font-light text-muted-foreground"
@@ -246,7 +248,7 @@ const pilotBenefits = [
             <h3
               class="text-2xl md:text-3xl font-semibold text-foreground leading-tight mb-4"
             >
-              See what actually eats your bill—by area & device
+              See what actually eats your bill, by area & device
             </h3>
             <p class="text-base text-muted-foreground">
               Get a breakdown of where your energy goes, we'll also help you to
@@ -280,7 +282,7 @@ const pilotBenefits = [
               Stop after-hours waste before it snowballs.
             </h3>
             <p class="text-base text-muted-foreground">
-              Catch anomalies early—like lights or HVAC left running—without
+              Catch anomalies early - like lights or HVAC left running - without
               combing through data.
             </p>
           </div>
@@ -725,32 +727,43 @@ const pilotBenefits = [
 </BaseLayout>
 
 <script is:inline>
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener("DOMContentLoaded", function () {
     // Track Join Pilot clicks
     document.querySelectorAll('a[href="/join-pilot"]').forEach(function (el) {
-      el.addEventListener('click', function () {
-        window.posthog?.capture('join_pilot_clicked', { location: el.closest('header') ? 'header' : 'page' });
+      el.addEventListener("click", function () {
+        window.posthog?.capture("join_pilot_clicked", {
+          location: el.closest("header") ? "header" : "page",
+        });
       });
     });
 
     // Track Book a Demo clicks
-    document.querySelectorAll('a[href^="mailto:"][href*="demo"]').forEach(function (el) {
-      el.addEventListener('click', function () {
-        window.posthog?.capture('book_demo_clicked', { location: el.closest('section') ? el.closest('section').id || 'section' : 'page' });
+    document
+      .querySelectorAll('a[href^="mailto:"][href*="demo"]')
+      .forEach(function (el) {
+        el.addEventListener("click", function () {
+          window.posthog?.capture("book_demo_clicked", {
+            location: el.closest("section")
+              ? el.closest("section").id || "section"
+              : "page",
+          });
+        });
       });
-    });
 
     // Track pilot section becoming visible (top of conversion funnel)
-    var pilotSection = document.getElementById('pilot');
-    if (pilotSection && 'IntersectionObserver' in window) {
+    var pilotSection = document.getElementById("pilot");
+    if (pilotSection && "IntersectionObserver" in window) {
       var observed = false;
-      var observer = new IntersectionObserver(function (entries) {
-        if (!observed && entries[0].isIntersecting) {
-          observed = true;
-          window.posthog?.capture('pilot_section_viewed');
-          observer.disconnect();
-        }
-      }, { threshold: 0.3 });
+      var observer = new IntersectionObserver(
+        function (entries) {
+          if (!observed && entries[0].isIntersecting) {
+            observed = true;
+            window.posthog?.capture("pilot_section_viewed");
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.3 },
+      );
       observer.observe(pilotSection);
     }
   });

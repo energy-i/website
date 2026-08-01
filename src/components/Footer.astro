@@ -3,8 +3,8 @@ const email = "hello@energy-i.ai";
 
 const platformLinks = [
   { label: "Platform", href: "#platform" },
-  { label: "Features", href: "#how-it-works" },
-  { label: "Users", href: "#who-its-for" },
+  { label: "Features", href: "#features" },
+  { label: "Industries", href: "#industries" },
   { label: "Pilot Program", href: "/join-pilot" },
 ];
 
@@ -113,11 +113,11 @@ const legalLinks = [
 </footer>
 
 <script is:inline>
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener("DOMContentLoaded", function () {
     var emailLink = document.querySelector('footer a[href^="mailto:"]');
     if (emailLink) {
-      emailLink.addEventListener('click', function () {
-        window.posthog?.capture('footer_email_clicked');
+      emailLink.addEventListener("click", function () {
+        window.posthog?.capture("footer_email_clicked");
       });
     }
   });
