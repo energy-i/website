@@ -49,18 +49,6 @@ Environment variables required: `PUBLIC_POSTHOG_PROJECT_TOKEN` and `PUBLIC_POSTH
 
 `src/components/ui/*` is intentionally kept identical to the same files in the [`my`](../my/src/components/ui) app. Do not add site-specific variants here — style differences should be handled at the call site via `className`. When the `my` app updates a primitive, mirror the change here.
 
-## Commands
-
-| Command             | Action                                     |
-| :------------------ | :----------------------------------------- |
-| `npm install`       | Install dependencies                       |
-| `npm run dev`       | Start the local dev server at `:4321`      |
-| `npm run build`     | Type-check and build the site to `./dist/` |
-| `npm run preview`   | Preview the production build locally       |
-| `npx cypress run`   | Run Cypress tests against the local server |
-| `npx cypress open`  | Open the Cypress test runner               |
-| `npm run astro ...` | Run Astro CLI commands                     |
-
 ## End-to-end tests
 
 Start the site with `npm run dev`, then run `npx cypress run` in another
