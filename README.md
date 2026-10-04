@@ -57,5 +57,16 @@ Environment variables required: `PUBLIC_POSTHOG_PROJECT_TOKEN` and `PUBLIC_POSTH
 | `npm run dev`       | Start the local dev server at `:4321`      |
 | `npm run build`     | Type-check and build the site to `./dist/` |
 | `npm run preview`   | Preview the production build locally       |
+| `npx cypress run`   | Run Cypress tests against the local server |
+| `npx cypress open`  | Open the Cypress test runner               |
 | `npm run astro ...` | Run Astro CLI commands                     |
+
+## End-to-end tests
+
+Start the site with `npm run dev`, then run `npx cypress run` in another
+terminal. Cypress checks that the homepage renders a visible heading.
+The default base URL is `http://localhost:4321`; for another port, run
+`npx cypress run --config baseUrl=http://localhost:4322`.
+
+Pull requests run the build and Cypress tests automatically via GitHub Actions.
 
