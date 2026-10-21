@@ -110,26 +110,45 @@ const pilotBenefits = [
 ];
 ---
 
+<script>
+  import { gsap } from "gsap";
+
+  const hero = document.querySelector("[data-hero]");
+
+  if (hero) {
+    gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", () => {
+      gsap.from(hero.querySelectorAll("[data-hero-item]"), {
+        opacity: 0,
+        y: 12,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: "power2.out",
+        clearProps: "opacity,transform",
+      });
+    });
+  }
+</script>
+
 <BaseLayout>
   <Header />
 
   <main>
     <!-- Hero -->
-    <section
-      class="relative lg:min-h-[calc(100vh-4rem)] py-12 lg:py-0 bg-background"
-    >
+    <section data-hero class="relative py-12 lg:py-48 bg-background">
       <div
-        class="relative z-10 lg:min-h-[calc(100vh-4rem)] flex items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        class="relative z-10 flex items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
       >
         <div class="grid lg:grid-cols-2 gap-16 items-center w-full">
           <div class="space-y-8">
             <div class="space-y-6">
               <p
+                data-hero-item
                 class="text-sm text-primary font-semibold uppercase tracking-wide mb-3"
               >
                 Energy Management Software
               </p>
               <h1
+                data-hero-item
                 class="text-4xl lg:text-5xl leading-tight font-semibold text-foreground"
               >
                 Meet the ultimate{" "}
@@ -139,13 +158,14 @@ const pilotBenefits = [
                 for your business
               </h1>
               <p
+                data-hero-item
                 class="text-lg lg:text-xl leading-relaxed max-w-2xl font-light text-muted-foreground"
               >
                 See where energy is wasted, get actionable fixes, and cut costs
                 without sensors or a BMS.
               </p>
             </div>
-            <div class="flex flex-col sm:flex-row gap-4 pt-4">
+            <div data-hero-item class="flex flex-col sm:flex-row gap-4 pt-4">
               <a
                 href="/join-pilot"
                 class={buttonVariants({
@@ -168,7 +188,7 @@ const pilotBenefits = [
               </a>
             </div>
           </div>
-          <div class="relative">
+          <div data-hero-item class="relative">
             <div
               class="absolute inset-0 bg-primary/10 rounded-3xl blur-3xl transform scale-110"
             >
