@@ -1,5 +1,6 @@
 ---
 import { buttonVariants } from "@/components/ui/button";
+import MobileNavigation from "@/components/MobileNavigation";
 const BOOK_DEMO_URL = "https://calendar.app.google/kqNKoJ1XgP21c6py6";
 const JOIN_PILOT_URL = "https://my.energy-i.ai/sign-up";
 
@@ -12,8 +13,8 @@ const navLinks = [
 
 <header class="bg-background border-b border-border sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
-      <div class="flex items-center">
+    <div class="flex justify-between items-center gap-4 h-16">
+      <div class="flex shrink-0 items-center">
         <a
           href="/"
           class="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
@@ -29,7 +30,7 @@ const navLinks = [
           <span class="text-lg font-semibold">Energy-i</span>
         </a>
       </div>
-      <nav class="hidden md:flex space-x-8">
+      <nav aria-label="Main navigation" class="hidden lg:flex space-x-8">
         {
           navLinks.map((link) => (
             <a
@@ -41,13 +42,27 @@ const navLinks = [
           ))
         }
       </nav>
-      <div class="flex items-center space-x-3">
-        <a href={BOOK_DEMO_URL} class={buttonVariants({ variant: "outline" })}>
+      <div class="hidden lg:flex items-center gap-3">
+        <a
+          href={BOOK_DEMO_URL}
+          class={buttonVariants({ variant: "outline" })}
+        >
           Book a demo
         </a>
-        <a href={JOIN_PILOT_URL} class={buttonVariants({ variant: "default" })}>
+        <a
+          href={JOIN_PILOT_URL}
+          class={buttonVariants({ variant: "default" })}
+        >
           Join Pilot
         </a>
+      </div>
+      <div class="lg:hidden">
+        <MobileNavigation
+          client:load
+          links={navLinks}
+          bookDemoUrl={BOOK_DEMO_URL}
+          joinPilotUrl={JOIN_PILOT_URL}
+        />
       </div>
     </div>
   </div>
