@@ -394,10 +394,8 @@ const pilotBenefits = [
     <section class="bg-background py-12 lg:py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="bg-secondary rounded-2xl p-8 lg:p-12 mx-4 sm:mx-8 lg:mx-16">
-          <div
-            class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
-          >
-            <div class="text-center lg:text-left">
+          <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
+            <div class="text-center lg:text-left max-w-2xl">
               <h3 class="text-3xl font-semibold text-foreground mb-4">
                 Ready to cut waste and save on your energy bills?
               </h3>
@@ -406,10 +404,10 @@ const pilotBenefits = [
                 smart alerts, and savings opportunities.
               </p>
             </div>
-            <div class="flex justify-center lg:justify-end">
+            <div class="flex-1 flex justify-center lg:justify-end">
               <a
                 href={JOIN_PILOT_URL}
-                class={buttonVariants({ variant: "default", size: "lg" })}
+                class={buttonVariants({ variant: "default", size: "xl" })}
               >
                 Join pilot
               </a>
