@@ -1,5 +1,7 @@
 ---
 import { buttonVariants } from "@/components/ui/button";
+const BOOK_DEMO_URL = "https://calendar.app.google/kqNKoJ1XgP21c6py6";
+const JOIN_PILOT_URL = "https://my.energy-i.ai/sign-up";
 
 const navLinks = [
   { label: "Platform", href: "#platform" },
@@ -40,13 +42,10 @@ const navLinks = [
         }
       </nav>
       <div class="flex items-center space-x-3">
-        <a
-          href="https://my.energy-i.ai"
-          class={buttonVariants({ variant: "outline" })}
-        >
-          Sign up
+        <a href={BOOK_DEMO_URL} class={buttonVariants({ variant: "outline" })}>
+          Book a demo
         </a>
-        <a href="/join-pilot" class={buttonVariants({ variant: "default" })}>
+        <a href={JOIN_PILOT_URL} class={buttonVariants({ variant: "default" })}>
           Join Pilot
         </a>
       </div>
@@ -55,11 +54,11 @@ const navLinks = [
 </header>
 
 <script is:inline>
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener("DOMContentLoaded", function () {
     var signupBtn = document.querySelector('a[href="https://my.energy-i.ai"]');
     if (signupBtn) {
-      signupBtn.addEventListener('click', function () {
-        window.posthog?.capture('signup_clicked');
+      signupBtn.addEventListener("click", function () {
+        window.posthog?.capture("signup_clicked");
       });
     }
   });

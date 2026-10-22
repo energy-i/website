@@ -19,6 +19,9 @@ import {
   TrendingDown,
 } from "lucide-react";
 
+const JOIN_PILOT_URL = "https://my.energy-i.ai/sign-up";
+const BOOK_DEMO_URL = "https://calendar.app.google/kqNKoJ1XgP21c6py6";
+
 const challenges = [
   {
     Icon: EyeOff,
@@ -134,7 +137,7 @@ const pilotBenefits = [
 
   <main>
     <!-- Hero -->
-    <section data-hero class="relative py-12 lg:py-48 bg-background">
+    <section data-hero class="relative py-16 lg:py-48 bg-background">
       <div
         class="relative z-10 flex items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
       >
@@ -167,7 +170,7 @@ const pilotBenefits = [
             </div>
             <div data-hero-item class="flex flex-col sm:flex-row gap-4 pt-4">
               <a
-                href="/join-pilot"
+                href={JOIN_PILOT_URL}
                 class={buttonVariants({
                   variant: "default",
                   size: "lg",
@@ -177,7 +180,7 @@ const pilotBenefits = [
                 Join Pilot
               </a>
               <a
-                href="mailto:hello@energy-i.ai?subject=Book%20a%20Demo"
+                href={BOOK_DEMO_URL}
                 class={buttonVariants({
                   variant: "outline",
                   size: "lg",
@@ -232,20 +235,18 @@ const pilotBenefits = [
           </p>
         </div>
         <div class="relative pb-16">
-          <div
-            class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 [&::-webkit-scrollbar]:hidden [scrollbar-width:none]"
-          >
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {
               challenges.map(({ Icon, title, description }) => (
-                <div class="basis-96 flex-shrink-0 min-w-0 snap-start">
-                  <Card className="text-left bg-muted h-full flex flex-col rounded-xl ring-0">
-                    <CardHeader className="space-y-4 px-8 pt-8 pb-4 flex-shrink-0">
-                      <Icon className="w-5 h-5 text-primary" />
-                      <h3 class="text-xl font-semibold text-foreground">
+                <div class="min-w-0">
+                  <Card className="text-left bg-muted h-full flex flex-col gap-4 py-5 rounded-xl ring-0">
+                    <CardHeader className="flex flex-col items-start gap-4 px-5 py-0 flex-shrink-0">
+                      <Icon className="size-8 shrink-0 text-primary" />
+                      <h3 class="text-lg leading-snug font-semibold text-foreground">
                         {title}
                       </h3>
                     </CardHeader>
-                    <CardContent className="px-8 pb-14 pt-0 flex-1 flex items-start">
+                    <CardContent className="px-5 py-0 flex-1 flex items-start">
                       <p class="text-sm text-muted-foreground leading-relaxed">
                         {description}
                       </p>
@@ -407,10 +408,10 @@ const pilotBenefits = [
             </div>
             <div class="flex justify-center lg:justify-end">
               <a
-                href="mailto:hello@energy-i.ai?subject=Book%20a%20demo"
+                href={JOIN_PILOT_URL}
                 class={buttonVariants({ variant: "default", size: "lg" })}
               >
-                Book a demo
+                Join pilot
               </a>
             </div>
           </div>
@@ -524,7 +525,7 @@ const pilotBenefits = [
 
             <div class="flex justify-center sm:justify-start">
               <a
-                href="/join-pilot"
+                href={JOIN_PILOT_URL}
                 class={buttonVariants({ variant: "default", size: "lg" })}
               >
                 Join Pilot
