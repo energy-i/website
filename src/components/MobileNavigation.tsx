@@ -73,7 +73,7 @@ export default function MobileNavigation({
             </SheetClose>
             <SheetClose asChild>
               <a href={joinPilotUrl} className={buttonVariants({ size: "lg" })}>
-                Join Pilot
+                Sign up
               </a>
             </SheetClose>
           </SheetFooter>

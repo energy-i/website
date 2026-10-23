@@ -2,7 +2,7 @@
 import { buttonVariants } from "@/components/ui/button";
 import MobileNavigation from "@/components/MobileNavigation";
 const BOOK_DEMO_URL = "https://calendar.app.google/kqNKoJ1XgP21c6py6";
-const JOIN_PILOT_URL = "https://my.energy-i.ai/sign-up";
+const SIGN_UP_URL = "https://my.energy-i.ai/sign-up";
 
 const navLinks = [
   { label: "Platform", href: "#platform" },
@@ -44,16 +44,13 @@ const navLinks = [
       </nav>
       <div class="hidden lg:flex items-center gap-3">
         <a
-          href={BOOK_DEMO_URL}
+          href="https://my.energy-i.ai/sign-in"
           class={buttonVariants({ variant: "outline" })}
         >
-          Book a demo
+          Sign in
         </a>
-        <a
-          href={JOIN_PILOT_URL}
-          class={buttonVariants({ variant: "default" })}
-        >
-          Join Pilot
+        <a href={SIGN_UP_URL} class={buttonVariants({ variant: "default" })}>
+          Sign up
         </a>
       </div>
       <div class="lg:hidden">
@@ -61,7 +58,7 @@ const navLinks = [
           client:load
           links={navLinks}
           bookDemoUrl={BOOK_DEMO_URL}
-          joinPilotUrl={JOIN_PILOT_URL}
+          joinPilotUrl={SIGN_UP_URL}
         />
       </div>
     </div>

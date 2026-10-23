@@ -38,9 +38,8 @@ Page-specific copy and arrays live inline in the page/component that consumes th
 PostHog analytics is integrated via `src/components/posthog.astro` included in the base layout. This tracks key conversion signals:
 
 - `pilot_section_viewed` — Pilot program section scrolls into view
-- `join_pilot_clicked` — Join Pilot CTA button clicked
+- `sign_up_clicked` — Sign up CTA button clicked
 - `book_demo_clicked` — Book a Demo CTA clicked
-- `signup_clicked` — Sign Up header button clicked
 - `footer_email_clicked` — Contact email link in footer clicked
 
 Environment variables required: `PUBLIC_POSTHOG_PROJECT_TOKEN` and `PUBLIC_POSTHOG_HOST`.

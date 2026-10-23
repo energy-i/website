@@ -19,7 +19,7 @@ import {
   TrendingDown,
 } from "lucide-react";
 
-const JOIN_PILOT_URL = "https://my.energy-i.ai/sign-up";
+const SIGN_UP_URL = "https://my.energy-i.ai/sign-up";
 const BOOK_DEMO_URL = "https://calendar.app.google/kqNKoJ1XgP21c6py6";
 
 const challenges = [
@@ -170,14 +170,14 @@ const pilotBenefits = [
             </div>
             <div data-hero-item class="flex flex-col sm:flex-row gap-4 pt-4">
               <a
-                href={JOIN_PILOT_URL}
+                href={SIGN_UP_URL}
                 class={buttonVariants({
                   variant: "default",
                   size: "lg",
                   className: "w-full sm:w-auto sm:min-w-[200px]",
                 })}
               >
-                Join Pilot
+                Sign up
               </a>
               <a
                 href={BOOK_DEMO_URL}
@@ -406,10 +406,10 @@ const pilotBenefits = [
             </div>
             <div class="flex-1 flex justify-center lg:justify-end">
               <a
-                href={JOIN_PILOT_URL}
+                href={SIGN_UP_URL}
                 class={buttonVariants({ variant: "default", size: "xl" })}
               >
-                Join pilot
+                Sign up
               </a>
             </div>
           </div>
@@ -523,10 +523,10 @@ const pilotBenefits = [
 
             <div class="flex justify-center sm:justify-start">
               <a
-                href={JOIN_PILOT_URL}
+                href={SIGN_UP_URL}
                 class={buttonVariants({ variant: "default", size: "lg" })}
               >
-                Join Pilot
+                Sign up
               </a>
             </div>
           </div>
@@ -748,9 +748,9 @@ const pilotBenefits = [
 <script is:inline>
   document.addEventListener("DOMContentLoaded", function () {
     // Track Join Pilot clicks
-    document.querySelectorAll('a[href="/join-pilot"]').forEach(function (el) {
+    document.querySelectorAll('a[href="/sign-up"]').forEach(function (el) {
       el.addEventListener("click", function () {
-        window.posthog?.capture("join_pilot_clicked", {
+        window.posthog?.capture("sign_up_clicked", {
           location: el.closest("header") ? "header" : "page",
         });
       });
