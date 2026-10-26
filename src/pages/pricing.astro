@@ -1,0 +1,233 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { buttonVariants } from "@/components/ui/button";
+import { ArrowRight, Check } from "lucide-react";
+
+const BOOK_DEMO_URL = "https://calendar.app.google/kqNKoJ1XgP21c6py6";
+
+const plans = [
+  {
+    name: "Monitor",
+    price: 200,
+    tagline: "Complete visibility across your energy data.",
+    description:
+      "Start by getting a crystal-clear picture of your energy footprint. Monitor aggregates your core energy metrics into a single, intuitive dashboard.",
+    popular: false,
+    includes: "Included in Monitor",
+    features: [
+      {
+        title: "Centralised Data Hub",
+        description:
+          "Consolidate solar generation, grid imports/exports, and baseline consumption data into one place.",
+      },
+      {
+        title: "Standard Reporting",
+        description:
+          "Track daily and historical trends to simplify carbon and energy compliance reporting.",
+      },
+      {
+        title: "System Status Overview",
+        description:
+          "Instant view of high-level asset health across your site.",
+      },
+    ],
+  },
+  {
+    name: "Optimise",
+    price: 600,
+    tagline: "Turn raw energy data into actionable cost savings.",
+    description:
+      "Our flagship plan uses machine learning to learn your building's unique operational patterns, uncovering waste and delivering intelligent, actionable insights.",
+    popular: true,
+    includes: "Everything in Monitor, plus:",
+    features: [
+      {
+        title: "Machine Learning Analytics",
+        description:
+          "Machine learning continuously evaluates your load profiles against weather patterns, solar output, and tariff rates.",
+      },
+      {
+        title: "Predictive Anomaly Detection",
+        description:
+          "Catch unusual consumption spikes and equipment inefficiencies early to assist with operational continuity.",
+      },
+      {
+        title: "Actionable Cost Alerts",
+        description:
+          "Receive tailored recommendations on when to shift loads or discharge stored energy to avoid peak network charges.",
+      },
+      {
+        title: "Asset Performance Insights",
+        description:
+          "Deep-dive reporting on battery state-of-health, generator readiness, and solar yield efficiency.",
+      },
+    ],
+  },
+  {
+    name: "Control",
+    price: 2400,
+    tagline: "Fully automated energy orchestration for maximum ROI.",
+    description:
+      "For sites requiring zero-touch execution. Control takes the intelligence from our Optimise tier and automatically executes dispatch decisions in real time.",
+    popular: false,
+    includes: "Everything in Optimise, plus:",
+    features: [
+      {
+        title: "Automated Asset Dispatch",
+        description:
+          "Real-time, automated command and control over battery storage, solar, and building auxiliary loads.",
+      },
+      {
+        title: "Peak Shaving & Tariff Arbitrage",
+        description:
+          "Automatically store cheap power and discharge during high-tariff windows without manual intervention.",
+      },
+      {
+        title: "Grid Constraint Management",
+        description:
+          "Keep site demand strictly within agreed grid capacity thresholds automatically.",
+      },
+      {
+        title: "Third-Party Optimiser Integration",
+        description:
+          "Plug directly into wholesale energy markets and ancillary services to unlock secondary revenue streams.",
+      },
+    ],
+  },
+];
+
+const currency = new Intl.NumberFormat("en-GB", {
+  style: "currency",
+  currency: "GBP",
+  maximumFractionDigits: 0,
+});
+---
+
+<BaseLayout
+  title="Pricing | Energy-i"
+  description="Compare Energy-i's Monitor, Optimise, and Control plans. Energy visibility from GBP 200 per year per site, with insights and automation as you grow."
+>
+  <Header />
+
+  <main>
+    <section aria-labelledby="pricing-heading" class="py-16 lg:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl space-y-6 mb-12 lg:mb-16">
+          <p class="text-sm text-primary font-semibold uppercase tracking-wide">
+            Our plans
+          </p>
+          <h1
+            id="pricing-heading"
+            class="text-4xl lg:text-5xl leading-tight font-semibold text-foreground"
+          >
+            Pricing
+          </h1>
+          <p
+            class="text-lg lg:text-xl leading-relaxed font-light text-muted-foreground"
+          >
+            From a clearer picture of your energy use to fully automated
+            control.<br />Choose the right level for your site.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+          {
+            plans.map((plan) => (
+              <article
+                aria-labelledby={`plan-${plan.name.toLowerCase()}`}
+                aria-describedby={
+                  plan.name === "Control"
+                    ? "control-deployment-note"
+                    : undefined
+                }
+                class:list={[
+                  "flex flex-col rounded-lg border p-6 xl:p-8",
+                  plan.popular
+                    ? "border-primary bg-sky-50/60 ring-1 ring-primary"
+                    : "border-border bg-background",
+                ]}
+              >
+                <div class="flex flex-wrap items-center justify-between gap-3 min-h-7 mb-5">
+                  <h2
+                    id={`plan-${plan.name.toLowerCase()}`}
+                    class="text-2xl font-semibold text-foreground"
+                  >
+                    {plan.name}
+                  </h2>
+                  {plan.popular && (
+                    <span class="text-xs font-semibold uppercase text-sky-800">
+                      Most popular
+                    </span>
+                  )}
+                </div>
+                <p class="text-base leading-relaxed text-muted-foreground lg:min-h-20">
+                  {plan.tagline}
+                </p>
+                <p class="mt-6">
+                  <span class="text-4xl font-semibold text-foreground">
+                    {currency.format(plan.price)}
+                  </span>
+                  <span class="block mt-2 text-sm text-muted-foreground">
+                    per year, per site
+                  </span>
+                </p>
+                <a
+                  href={BOOK_DEMO_URL}
+                  aria-label={`Book a demo of ${plan.name}`}
+                  class={buttonVariants({
+                    variant: plan.popular ? "default" : "outline",
+                    size: "lg",
+                    className: "w-full mt-6",
+                  })}
+                >
+                  Book a demo
+                  <ArrowRight className="size-4" aria-hidden="true" />
+                </a>
+                <p class="mt-6 text-sm leading-relaxed text-muted-foreground lg:min-h-36">
+                  {plan.description}
+                </p>
+                <div class="border-t border-border mt-6 pt-6">
+                  <h3 class="text-sm font-semibold text-foreground mb-5">
+                    {plan.includes}
+                  </h3>
+                  <ul class="space-y-5">
+                    {plan.features.map((feature) => (
+                      <li class="flex items-start gap-3">
+                        <Check
+                          className="size-4 mt-1 shrink-0 text-primary"
+                          strokeWidth={2}
+                          aria-hidden="true"
+                        />
+                        <div class="min-w-0 text-sm leading-relaxed">
+                          <p class="font-semibold text-foreground">
+                            {feature.title}
+                          </p>
+                          <p class="mt-1 text-muted-foreground">
+                            {feature.description}
+                          </p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                {plan.name === "Control" && (
+                  <p
+                    id="control-deployment-note"
+                    class="mt-6 border-t border-border pt-5 text-xs leading-relaxed text-muted-foreground"
+                  >
+                    Deployment of the Control tier is subject to a site audit
+                    and compatible hardware installation.
+                  </p>
+                )}
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
