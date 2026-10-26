@@ -114,7 +114,7 @@ const currency = new Intl.NumberFormat("en-GB", {
   <main>
     <section aria-labelledby="pricing-heading" class="py-16 lg:py-24">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-3xl space-y-6 mb-12 lg:mb-16">
+        <div data-scroll-reveal class="max-w-3xl space-y-6 mb-12 lg:mb-16">
           <p class="text-sm text-primary font-semibold uppercase tracking-wide">
             Our plans
           </p>
@@ -136,6 +136,7 @@ const currency = new Intl.NumberFormat("en-GB", {
           {
             plans.map((plan) => (
               <article
+                data-scroll-reveal
                 aria-labelledby={`plan-${plan.name.toLowerCase()}`}
                 aria-describedby={
                   plan.name === "Control"

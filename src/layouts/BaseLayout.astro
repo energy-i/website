@@ -2,6 +2,7 @@
 import '@fontsource-variable/montserrat/wght.css';
 import "@/styles/globals.css";
 import PostHog from "@/components/posthog.astro";
+import ScrollReveal from "@/components/ScrollReveal.astro";
 
 interface Props {
   title?: string;
@@ -52,5 +53,6 @@ const socialImage = new URL(image, Astro.site).toString();
   </head>
   <body class="font-sans">
     <slot />
+    <ScrollReveal />
   </body>
 </html>

@@ -117,18 +117,23 @@ const pilotBenefits = [
 
   const hero = document.querySelector("[data-hero]");
 
-  if (hero) {
-    gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", () => {
-      gsap.from(hero.querySelectorAll("[data-hero-item]"), {
-        opacity: 0,
-        y: 12,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: "power2.out",
-        clearProps: "opacity,transform",
-      });
-    });
-  }
+  gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", () => {
+    if (hero) {
+      gsap.fromTo(
+        hero.querySelectorAll("[data-hero-item]"),
+        { opacity: 0, y: 12, filter: "blur(6px)" },
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 0.7,
+          stagger: 0.1,
+          ease: "power2.out",
+          clearProps: "opacity,transform,filter",
+        },
+      );
+    }
+  });
 </script>
 
 <BaseLayout>
@@ -223,7 +228,7 @@ const pilotBenefits = [
     <!-- Challenges -->
     <section id="platform" class="bg-muted/40 py-8 lg:py-12">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-2xl leading-none text-left mb-16">
+        <div data-scroll-reveal class="max-w-2xl leading-none text-left mb-16">
           <Badge className="mb-4">The Challenge</Badge>
           <h2 class="text-3xl font-semibold text-foreground mb-4">
             Most businesses are wasting energy without even realising it
@@ -237,7 +242,7 @@ const pilotBenefits = [
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {
               challenges.map(({ Icon, title, description }) => (
-                <div class="min-w-0">
+                <div data-scroll-reveal class="min-w-0">
                   <Card className="text-left bg-muted h-full flex flex-col gap-4 py-5 rounded-xl ring-0">
                     <CardHeader className="flex flex-col items-start gap-4 px-5 py-0 flex-shrink-0">
                       <Icon className="size-8 shrink-0 text-primary" />
@@ -263,7 +268,7 @@ const pilotBenefits = [
     <section id="features" class="bg-background py-12 lg:py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
-          <div class="space-y-6">
+          <div data-scroll-reveal class="space-y-6">
             <Badge className="mb-4">Appliance Attribution</Badge>
             <h3
               class="text-2xl md:text-3xl font-semibold text-foreground leading-tight mb-4"
@@ -275,7 +280,7 @@ const pilotBenefits = [
               target the biggest culprits first.
             </p>
           </div>
-          <div class="relative aspect-[3/2] w-full max-w-xl mx-auto">
+          <div data-scroll-reveal class="relative aspect-[3/2] w-full max-w-xl mx-auto">
             <img
               src="/images/ApplianceAttribution_1.webp"
               alt="Energy-i appliance attribution dashboard showing breakdown by area and device"
@@ -294,7 +299,7 @@ const pilotBenefits = [
     <section class="bg-muted/40 py-12 lg:py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col lg:grid lg:grid-cols-2 gap-12 items-center">
-          <div class="space-y-6 order-1 lg:order-2">
+          <div data-scroll-reveal class="space-y-6 order-1 lg:order-2">
             <Badge className="mb-4">Smart Alerts</Badge>
             <h3
               class="text-2xl md:text-3xl font-semibold text-foreground leading-tight mb-4"
@@ -307,6 +312,7 @@ const pilotBenefits = [
             </p>
           </div>
           <div
+            data-scroll-reveal
             class="relative aspect-[3/2] w-full max-w-xl mx-auto order-2 lg:order-1"
           >
             <img
@@ -327,7 +333,7 @@ const pilotBenefits = [
     <section class="bg-background py-12 lg:py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
-          <div class="space-y-6">
+          <div data-scroll-reveal class="space-y-6">
             <Badge className="mb-4">Savings Opportunities</Badge>
             <h3
               class="text-2xl md:text-3xl font-semibold text-foreground leading-tight mb-4"
@@ -340,7 +346,7 @@ const pilotBenefits = [
               prioritise what's worth doing.
             </p>
           </div>
-          <div class="relative aspect-[3/2] w-full max-w-xl mx-auto">
+          <div data-scroll-reveal class="relative aspect-[3/2] w-full max-w-xl mx-auto">
             <img
               src="/images/SavingsOpportunities_3.webp"
               alt="Energy-i savings opportunities dashboard showing tailored recommendations with cost impact"
@@ -359,7 +365,7 @@ const pilotBenefits = [
     <section class="bg-muted/40 py-12 lg:py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col lg:grid lg:grid-cols-2 gap-12 items-center">
-          <div class="space-y-6 order-1 lg:order-2">
+          <div data-scroll-reveal class="space-y-6 order-1 lg:order-2">
             <Badge className="mb-4">Usage Patterns & Trends</Badge>
             <h3
               class="text-2xl md:text-3xl font-semibold text-foreground leading-tight mb-4"
@@ -373,6 +379,7 @@ const pilotBenefits = [
             </p>
           </div>
           <div
+            data-scroll-reveal
             class="relative aspect-[3/2] w-full max-w-xl mx-auto order-2 lg:order-1"
           >
             <img
@@ -392,7 +399,7 @@ const pilotBenefits = [
     <!-- CTA banner -->
     <section class="bg-background py-12 lg:py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="bg-secondary rounded-2xl p-8 lg:p-12 mx-4 sm:mx-8 lg:mx-16">
+        <div data-scroll-reveal class="bg-secondary rounded-2xl p-8 lg:p-12 mx-4 sm:mx-8 lg:mx-16">
           <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
             <div class="text-center lg:text-left max-w-2xl">
               <h3 class="text-3xl font-semibold text-foreground mb-4">
@@ -419,7 +426,7 @@ const pilotBenefits = [
     <!-- Who it's for -->
     <section id="industries" class="bg-background py-16 lg:py-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
+        <div data-scroll-reveal class="text-center mb-16">
           <Badge className="mb-4">Industries</Badge>
           <h3
             class="text-2xl md:text-3xl font-semibold text-foreground leading-tight mb-4"
@@ -437,7 +444,7 @@ const pilotBenefits = [
             sectors.map((sector) => {
               const Icon = sectorIcons[sector.title] ?? Hotel;
               return (
-                <Card className="pt-0">
+                <Card data-scroll-reveal className="pt-0">
                   <div class="relative h-56 w-full">
                     <img
                       src={sector.image}
@@ -490,7 +497,7 @@ const pilotBenefits = [
     <section id="pilot" class="bg-muted/40 py-16 lg:py-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-2 gap-12 items-start">
-          <div class="space-y-8">
+          <div data-scroll-reveal class="space-y-8">
             <div>
               <Badge className="mb-4">Limited-Time Offer</Badge>
               <h2
@@ -535,7 +542,7 @@ const pilotBenefits = [
             </div>
           </div>
 
-          <div class="flex items-start justify-center pt-12">
+          <div data-scroll-reveal class="flex items-start justify-center pt-12">
             <div class="w-full h-auto max-w-[525px] mx-auto">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
