@@ -8,7 +8,6 @@ import { buttonVariants } from "@/components/ui/button";
 import {
   ArrowDown,
   Check,
-  CheckCircle,
   CreditCard,
   EyeOff,
   Factory,
@@ -469,6 +468,7 @@ const pilotBenefits = [
                             <Check
                               className="w-4 h-4 text-primary mt-0.5 mr-3 flex-shrink-0"
                               strokeWidth={2}
+                              aria-hidden="true"
                             />
                             <span class="text-base text-muted-foreground">
                               {benefit}
@@ -512,7 +512,11 @@ const pilotBenefits = [
               {
                 pilotBenefits.map((benefit) => (
                   <div class="flex items-center space-x-3">
-                    <CheckCircle className="w-5 h-5 text-brand-600 flex-shrink-0" />
+                    <Check
+                      className="w-4 h-4 text-primary flex-shrink-0"
+                      strokeWidth={2}
+                      aria-hidden="true"
+                    />
                     <span class="text-base text-muted-foreground">
                       {benefit}
                     </span>
