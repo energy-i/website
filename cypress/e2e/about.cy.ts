@@ -14,9 +14,10 @@ describe("About us", () => {
       cy.get("main > section")
         .last()
         .within(() => {
-          cy.get("h2").should("contain.text", "Meet the founders");
+          cy.get("h2").should("contain.text", "Who we are");
           cy.get("article").should("have.length", 2);
           cy.get("article").each(($founder) => {
+            cy.wrap($founder).scrollIntoView();
             cy.wrap($founder).find("h3").should("be.visible");
             cy.wrap($founder).should("contain.text", "Co-founder");
           });

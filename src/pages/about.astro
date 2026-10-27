@@ -4,13 +4,13 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 
-const founders = [
+const team = [
   {
     image: "/images/bilal.webp",
     name: "Bilal Islam",
     role: "Co-founder, CEO",
     linkedin: "https://www.linkedin.com/in/bilal-i-80b245211/",
-    bio: "Having worked in all aspects of solar energy from surveying, designing, installing and operations, Bilal brings a wealth of practical experience to Energy-i's mission of smarter energy management.",
+    bio: "Having decades of experience in all aspects of energy management from survey, design and installation, Bilal brings a wealth of practical and operational experience to Energy-i",
   },
   {
     image: "/images/mike.webp",
@@ -30,6 +30,7 @@ const founders = [
 
   <main class="bg-muted/40">
     <section
+      data-scroll-reveal
       aria-labelledby="mission-heading"
       class="bg-background py-16 lg:py-24"
     >
@@ -210,23 +211,27 @@ const founders = [
       </div>
     </section>
 
-    <section aria-labelledby="founders-heading" class="py-16 lg:py-24">
+    <section
+      data-scroll-reveal
+      aria-labelledby="team-heading"
+      class="py-16 lg:py-24"
+    >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-2xl space-y-4 mb-10">
           <h2
-            id="founders-heading"
+            id="team-heading"
             class="text-3xl lg:text-4xl font-semibold text-foreground"
           >
-            Meet the founders
+            Who we are
           </h2>
           <p class="text-lg leading-relaxed text-muted-foreground">
-            The two people behind Energy-i.
+            The team behind Energy-i
           </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           {
-            founders.map((founder) => (
-              <article aria-label={founder.name}>
+            team.map((founder) => (
+              <article data-scroll-reveal aria-label={founder.name}>
                 <Card className="h-full">
                   <CardHeader className="flex flex-row items-center gap-4">
                     <img
