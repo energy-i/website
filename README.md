@@ -44,6 +44,17 @@ PostHog analytics is integrated via `src/components/posthog.astro` included in t
 
 Environment variables required: `PUBLIC_POSTHOG_PROJECT_TOKEN` and `PUBLIC_POSTHOG_HOST`.
 
+The site only loads PostHog after a visitor accepts analytics in the cookie
+banner. Accept and Reject have equal prominence. Choices are stored in
+`localStorage` under `energy-i.analytics-consent.v1` for 90 days, and PostHog's
+cookie expiry is also set to 90 days. Footer Cookie settings lets visitors
+change their choice. Saving a choice reloads the page; withdrawing consent
+opts out and clears PostHog persistence before reloading to unload the SDK.
+No events are queued before consent. The banner and cookie controls also work
+locally without a project token; analytics remains disabled until a token is
+configured. If you've already made a choice, reopen the banner using Cookie
+settings in the footer.
+
 ## UI components
 
 `src/components/ui/*` is intentionally kept identical to the same files in the [`my`](../my/src/components/ui) app. Do not add site-specific variants here — style differences should be handled at the call site via `className`. When the `my` app updates a primitive, mirror the change here.
@@ -56,4 +67,3 @@ The default base URL is `http://localhost:4321`; for another port, run
 `npx cypress run --config baseUrl=http://localhost:4322`.
 
 Pull requests run the build and Cypress tests automatically via GitHub Actions.
-
