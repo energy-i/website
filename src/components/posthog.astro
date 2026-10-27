@@ -1,15 +1,211 @@
 ---
-// PostHog analytics snippet — uses is:inline to prevent Astro from processing it
+import { buttonVariants } from "@/components/ui/button";
 ---
-<script is:inline define:vars={{ apiKey: import.meta.env.PUBLIC_POSTHOG_PROJECT_TOKEN, apiHost: import.meta.env.PUBLIC_POSTHOG_HOST, isDev: import.meta.env.DEV }}>
-  if (isDev && !apiKey) {
-    console.error('PUBLIC_POSTHOG_PROJECT_TOKEN variable required by PostHog is missing or un-configured, this causes events to be silently missed. This error stops appearing once PUBLIC_POSTHOG_PROJECT_TOKEN is configured');
+
+<section
+  id="cookie-banner"
+  aria-labelledby="cookie-banner-title"
+  hidden
+  class="fixed inset-x-0 bottom-0 z-[60] max-h-[80dvh] overflow-y-auto border-t border-border bg-background/80 backdrop-blur-sm p-4 shadow-lg sm:p-6"
+>
+  <div
+    class="mx-auto flex max-w-7xl flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"
+  >
+    <div class="max-w-3xl space-y-2">
+      <h2 id="cookie-banner-title" class="text-lg font-semibold">
+        Analytics cookies
+      </h2>
+      <p class="text-sm text-muted-foreground">
+        With your permission, we use analytics cookies to understand how you use
+        Energy-i and improve our website. Analytics stays off unless you accept.
+        You can change your choice anytime using Cookie settings in the footer.{
+          " "
+        }
+        <a href="/privacy#cookies" class="underline underline-offset-4"
+          >Privacy policy</a
+        >.
+      </p>
+      <p
+        id="cookie-consent-error"
+        role="alert"
+        hidden
+        class="text-sm text-destructive"
+      >
+        We couldn't save your cookie preference. Please allow this site's
+        storage in your browser and try again. Your analytics preference has not
+        changed.
+      </p>
+    </div>
+    <div class="flex flex-wrap gap-3">
+      <button
+        type="button"
+        data-cookie-consent="rejected"
+        class={buttonVariants({ variant: "outline" })}
+      >
+        Reject
+      </button>
+      <button
+        type="button"
+        data-cookie-consent="accepted"
+        class={buttonVariants()}
+      >
+        Accept
+      </button>
+      <button
+        id="cookie-settings-close"
+        type="button"
+        hidden
+        class={buttonVariants({ variant: "ghost" })}
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</section>
+
+<script
+  is:inline
+  define:vars={{
+    apiKey: import.meta.env.PUBLIC_POSTHOG_PROJECT_TOKEN,
+    apiHost: import.meta.env.PUBLIC_POSTHOG_HOST,
+    isDev: import.meta.env.DEV,
+  }}
+>
+  var consentKey = "energy-i.analytics-consent.v1";
+  var consentDuration = 90 * 24 * 60 * 60 * 1000;
+  var consent = null;
+  try {
+    var savedConsent = localStorage.getItem(consentKey);
+    if (savedConsent) {
+      var storedConsent = JSON.parse(savedConsent);
+      if (
+        storedConsent &&
+        (storedConsent.choice === "accepted" ||
+          storedConsent.choice === "rejected") &&
+        typeof storedConsent.expiresAt === "number" &&
+        storedConsent.expiresAt > Date.now()
+      ) {
+        consent = storedConsent.choice;
+      } else {
+        localStorage.removeItem(consentKey);
+      }
+    }
+  } catch (error) {
+    console.error("Could not read the analytics consent preference.", error);
   }
-  if (apiKey) {
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys getNextSurveyStep onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+
+  var banner = document.getElementById("cookie-banner");
+  var consentError = document.getElementById("cookie-consent-error");
+  var closeSettings = document.getElementById("cookie-settings-close");
+  var settingsTrigger = document.querySelector("[data-cookie-settings]");
+  banner.hidden = consent !== null;
+  settingsTrigger.hidden = false;
+  settingsTrigger.addEventListener("click", function () {
+    banner.hidden = false;
+    closeSettings.hidden = consent === null;
+    banner.querySelector("button").focus({ preventScroll: true });
+  });
+  closeSettings.addEventListener("click", function () {
+    banner.hidden = true;
+    settingsTrigger.focus({ preventScroll: true });
+  });
+  banner.querySelectorAll("[data-cookie-consent]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      try {
+        localStorage.setItem(
+          consentKey,
+          JSON.stringify({
+            choice: button.dataset.cookieConsent,
+            expiresAt: Date.now() + consentDuration,
+          }),
+        );
+      } catch (error) {
+        console.error(
+          "Could not save the analytics consent preference.",
+          error,
+        );
+        consentError.hidden = false;
+        return;
+      }
+      if (button.dataset.cookieConsent === "rejected") {
+        window.posthog?.opt_out_capturing({ clear_persistence: true });
+      }
+      // Reloading also unloads the SDK and its listeners when consent is withdrawn.
+      window.location.reload();
+    });
+  });
+  window.addEventListener("storage", function (event) {
+    if (event.key === consentKey || event.key === null) {
+      window.posthog?.opt_out_capturing({ clear_persistence: true });
+      window.location.reload();
+    }
+  });
+
+  if (isDev && !apiKey) {
+    console.error(
+      "PUBLIC_POSTHOG_PROJECT_TOKEN variable required by PostHog is missing or un-configured, this causes events to be silently missed. This error stops appearing once PUBLIC_POSTHOG_PROJECT_TOKEN is configured",
+    );
+  }
+  if (apiKey && consent === "accepted") {
+    !(function (t, e) {
+      var o, n, p, r;
+      e.__SV ||
+        ((window.posthog = e),
+        (e._i = []),
+        (e.init = function (i, s, a) {
+          function g(t, e) {
+            var o = e.split(".");
+            (2 == o.length && ((t = t[o[0]]), (e = o[1])),
+              (t[e] = function () {
+                t.push([e].concat(Array.prototype.slice.call(arguments, 0)));
+              }));
+          }
+          (((p = t.createElement("script")).type = "text/javascript"),
+            (p.crossOrigin = "anonymous"),
+            (p.async = !0),
+            (p.src = s.api_host + "/static/array.js"),
+            (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(
+              p,
+              r,
+            ));
+          var u = e;
+          for (
+            void 0 !== a ? (u = e[a] = []) : (a = "posthog"),
+              u.people = u.people || [],
+              u.toString = function (t) {
+                var e = "posthog";
+                return (
+                  "posthog" !== a && (e += "." + a),
+                  t || (e += " (stub)"),
+                  e
+                );
+              },
+              u.people.toString = function () {
+                return u.toString(1) + ".people (stub)";
+              },
+              o =
+                "capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys getNextSurveyStep onSessionId".split(
+                  " ",
+                ),
+              n = 0;
+            n < o.length;
+            n++
+          )
+            g(u, o[n]);
+          e._i.push([i, s, a]);
+        }),
+        (e.__SV = 1));
+    })(document, window.posthog || []);
     posthog.init(apiKey, {
-      api_host: apiHost || 'https://eu.i.posthog.com',
-      defaults: '2026-01-30'
+      api_host: apiHost || "https://eu.i.posthog.com",
+      defaults: "2026-01-30",
+      cookie_expiration: 90,
+      opt_out_capturing_by_default: true,
+      capture_pageview: false,
+      loaded: function (instance) {
+        instance.opt_in_capturing({ captureEvent: false });
+        instance.capture("$pageview");
+      },
     });
   }
 </script>

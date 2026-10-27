@@ -89,7 +89,15 @@ const legalLinks = [
       <div class="text-sm text-background/60">
         © {new Date().getFullYear()} Energy-i. All rights reserved.
       </div>
-      <div class="flex space-x-6 mt-4 md:mt-0">
+      <div class="flex flex-wrap justify-center gap-x-6 gap-y-3 mt-4 md:mt-0">
+        <button
+          type="button"
+          data-cookie-settings
+          hidden
+          class="text-sm text-background/60 hover:text-primary transition-colors"
+        >
+          Cookie settings
+        </button>
         {
           legalLinks.map((link) => (
             <a
